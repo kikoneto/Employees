@@ -1,0 +1,19 @@
+.employees-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.employee-item {
+    align-self: center;
+    border: 3px solid gray;
+    padding: 20px;
+    margin: 20px;
+}
+
+.employee-item .identity,
+.employee-item .additional-info {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    justify-content: space-between;
+}

@@ -1,0 +1,17 @@
+.employees-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.employees-info-container {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    text-align: center;
+}
+
+.employees-info-container .employee-item {
+    border: 3px solid gray;
+    margin: 15px;
+    padding: 15px;
+}

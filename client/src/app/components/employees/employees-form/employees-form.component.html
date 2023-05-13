@@ -1,0 +1,123 @@
+<div class="employees-form section">
+    <h1>Employee Register</h1>
+
+    <div class="register">
+        <form (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="fill" class="form-item">
+                <mat-label>First Name</mat-label>
+                <input matInput [formControl]="firstNameControl">
+                <mat-error *ngIf="firstNameControl.invalid">{{getErrorMessage(firstNameControl)}}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="form-item">
+                <mat-label>Second Name</mat-label>
+                <input matInput [formControl]="secondNameControl">
+                <mat-error *ngIf="secondNameControl.invalid">{{getErrorMessage(secondNameControl)}}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="form-item">
+                <mat-label>Age</mat-label>
+                <input matInput type="number" [formControl]="ageControl">
+                <mat-error *ngIf="ageControl.invalid">{{getErrorMessage(ageControl)}}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="form-item">
+                <mat-label>Email</mat-label>
+                <input matInput [formControl]="emailControl">
+                <mat-error *ngIf="emailControl.invalid">{{getErrorMessage(emailControl)}}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="form-item">
+                <mat-label>Job Description</mat-label>
+                <input matInput [formControl]="jobDescControl">
+                <mat-error *ngIf="jobDescControl.invalid">{{getErrorMessage(jobDescControl)}}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="form-item">
+                <mat-label>Hire Date</mat-label>
+                <input matInput [formControl]="hireControl">
+                <mat-error *ngIf="hireControl.invalid">{{getErrorMessage(hireControl)}}</mat-error>
+            </mat-form-field>
+            <button mat-fab extended color="primary">
+                Register
+            </button>
+        </form>
+        <!-- <form (ngSubmit)="submit()">
+            <div class="register-item">
+                <label for="first-name">First Name</label>
+                <input type="text" [formControl]="firstNameControl" name="first">
+                <div class="errors">
+                    <div *ngIf="firstNameControl.errors?.['required']">
+                        First Name is required.
+                    </div>
+                    <div *ngIf="firstNameControl.errors?.['minlength']">
+                        First Name must be at least 4 characters long.
+                    </div>
+                </div>
+            </div>
+            <div class="register-item">
+                <label for="second-name">Second Name</label>
+                <input type="text" [formControl]="secondNameControl" name="second">
+
+                <div class="errors">
+                    <div *ngIf="secondNameControl.errors?.['required']">
+                        Second Name is required.
+                    </div>
+                    <div *ngIf="secondNameControl.errors?.['minlength']">
+                        Second Name must be at least 4 characters long.
+                    </div>
+                </div>
+            </div>
+            <div class="register-item">
+                <label for="age">Age</label>
+                <input type="number" [formControl]="ageControl" name="age">
+
+                <div class="errors">
+                    <div *ngIf="ageControl.errors?.['required']">
+                        Age is required.
+                    </div>
+                    <div *ngIf="ageControl.errors?.['min']">
+                        Age must be above 16.
+                    </div>
+                </div>
+            </div>
+            <div class="register-item">
+                <label for="email">Email</label>
+                <input type="text" [formControl]="emailControl" name="email">
+
+                <div class="errors">
+                    <div *ngIf="emailControl.errors?.['required']">
+                        Email is required.
+                    </div>
+                    <div *ngIf="emailControl.errors?.['email']">
+                        Email does not match the criteria.
+                    </div>
+                </div>
+            </div>
+            <div class="register-item">
+                <label for="job-desc">Job Description</label>
+                <input type="text" [formControl]="jobDescControl" name="job-desc">
+
+                <div class="errors">
+                    <div *ngIf="jobDescControl.errors?.['required']">
+                        Job Description is required.
+                    </div>
+                    <div *ngIf="jobDescControl.errors?.['minlength']">
+                        Name must be at least 4 characters long.
+                    </div>
+                </div>
+            </div>
+            <div class="register-item">
+                <label for="hire-date">Hire Date</label>
+                <input type="text" [formControl]="hireControl" name="hire-date">
+
+                <div class="errors">
+                    <div *ngIf="hireControl.errors?.['required']">
+                        Hire Date is required.
+                    </div>
+                    <div *ngIf="hireControl.errors?.['minlength']">
+                        Name must be at least 4 characters long.
+                    </div>
+                </div>
+            </div>
+            <div class="register-item">
+                <button type="submit">Register</button>
+            </div>
+        </form> -->
+    </div>
+</div>

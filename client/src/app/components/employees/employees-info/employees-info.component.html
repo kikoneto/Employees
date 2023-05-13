@@ -1,0 +1,12 @@
+<div class="employees-info section">
+    <h1 class="header">All Employees Count</h1>
+
+    <div class="employees-info-container">
+        <h2>{{employeeCollection.length}}</h2>
+
+        <div class="employee-item" *ngFor="let employee of employeeCollection">
+            <h3 class="employee-name">{{employee.identity.firstName}}</h3>
+            <h3 class="job-description">{{employee.jobDescription}}</h3>
+        </div>
+    </div>
+</div>
