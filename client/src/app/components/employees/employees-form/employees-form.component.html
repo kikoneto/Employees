@@ -19,14 +19,19 @@
                 <mat-error *ngIf="ageControl.invalid">{{getErrorMessage(ageControl)}}</mat-error>
             </mat-form-field>
             <mat-form-field appearance="fill" class="form-item">
+                <mat-label>City</mat-label>
+                <input matInput [formControl]="cityControl">
+                <mat-error *ngIf="cityControl.invalid">{{getErrorMessage(cityControl)}}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="form-item">
                 <mat-label>Email</mat-label>
                 <input matInput [formControl]="emailControl">
                 <mat-error *ngIf="emailControl.invalid">{{getErrorMessage(emailControl)}}</mat-error>
             </mat-form-field>
             <mat-form-field appearance="fill" class="form-item">
-                <mat-label>Job Description</mat-label>
-                <input matInput [formControl]="jobDescControl">
-                <mat-error *ngIf="jobDescControl.invalid">{{getErrorMessage(jobDescControl)}}</mat-error>
+                <mat-label>Previous Company</mat-label>
+                <input matInput [formControl]="companyControl">
+                <mat-error *ngIf="companyControl.invalid">{{getErrorMessage(companyControl)}}</mat-error>
             </mat-form-field>
             <mat-form-field appearance="fill" class="form-item">
                 <mat-label>Hire Date</mat-label>

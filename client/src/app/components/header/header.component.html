@@ -1,0 +1,21 @@
+<header class="header-container">
+    <nav>
+        <button mat-button color="primary" [matMenuTriggerFor]="main">Employees</button>
+        <mat-menu #main="matMenu" class="menu-item">
+            <button mat-menu-item color="primary" (click)="redirect('')">Employees Info</button>
+            <button mat-menu-item color="primary" (click)="redirect('list')">Employees List</button>
+            <button mat-menu-item color="primary" (click)="redirect('add-employee')">Employees Add</button>
+        </mat-menu>
+
+        <div class="authenticators" class="menu-item">
+            <button mat-button color="primary" (click)="redirect('login')">Login</button>
+            <button mat-button color="primary" (click)="redirect('login')">Register</button>
+        </div>
+
+        <button mat-button color="primary" [matMenuTriggerFor]="language">Language</button>
+        <mat-menu #language="matMenu">
+            <button mat-menu-item color="primary">BG</button>
+            <button mat-menu-item color="primary">EN</button>
+        </mat-menu>
+    </nav>
+</header>

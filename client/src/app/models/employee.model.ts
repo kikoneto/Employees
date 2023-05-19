@@ -1,15 +1,23 @@
-import { Identity } from "./identity.model";
-
 export class Employee {
-    identity: Identity;
-    jobDescription: string;
-    hireDate: string;
+    id?: number;
+    firstName: string;
+    secondName: string;
+    age: number;
+    city: string;
     email: string;
+    company: string;
+    hireDate: string;
 
-    constructor(firstName: string, secondName: string, age: number, jobDescription: string, hireDate: string, email: string) {
-        this.identity = new Identity(firstName, secondName, age);
-        this.jobDescription = jobDescription;
-        this.hireDate = hireDate;
+    constructor(firstName: string, secondName: string, age: number, city: string, email: string, company: string, hireDate: string, id?: number) {
+        if (id) {
+            this.id = id;
+        }
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.age = age;
+        this.city = city;
         this.email = email;
+        this.company = company;
+        this.hireDate = hireDate;
     }
 }

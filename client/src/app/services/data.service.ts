@@ -1,65 +1,23 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
+
 import { Employee } from '../models/employee.model';
+import { Observable } from 'rxjs';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
+export class EmployeeService {
+    constructor(private http: HttpClient) { }
 
-export class EmployeeDataService {
-    init = new Employee(
-        '',
-        '',
-        NaN,
-        '',
-        '',
-        '',
-    );
-
-    employeesCollection: Employee[] = [
-        new Employee(
-            'Ivan',
-            'Georgiev',
-            35,
-            'QA',
-            '25.01.2019',
-            'ivanGeorgiev@gmail.com',
-        ),
-        new Employee(
-            'Rosen',
-            'Jivkov',
-            23,
-            'Web Developer',
-            '21.02.2021',
-            'rosenJivkov@gmail.com',
-        )
-    ]
-
-    private data = new BehaviorSubject<Employee>(this.init);
-    private collection = new BehaviorSubject(this.employeesCollection);
-
-    private setCollection(collection: Employee[]) {
-        this.collection.next(collection);
+    getEmployees(): Observable<any> {
+        return this.http.get('http://localhost:3000/employees');
     }
 
-    setData(employee: Employee) {
-        this.data.next(employee);
-        this.employeesCollection = this.employeesCollection.concat(employee);
-        this.setCollection(this.employeesCollection);
-        console.log(this.employeesCollection)
+    addEmployee(employee: Employee): Observable<any> {
+        return this.http.post('http://localhost:3000/employees', employee);
     }
 
-
-    getData() {
-        return this.data.asObservable()
+    removeEmployee(id: number): Observable<any> {
+        return this.http.delete(`http://localhost:3000/employees/${id}`)
     }
 
-    getCollection() {
-        return this.collection.asObservable();
-    }
-
-    delData(emp: string) {
-        this.employeesCollection = this.employeesCollection.filter(x => x.email !== emp);
-        this.setCollection(this.employeesCollection)
-    }
 }

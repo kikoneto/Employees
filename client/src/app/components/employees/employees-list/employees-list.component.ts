@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { Employee } from '../../../models/employee.model';
-import { EmployeeDataService } from '../../../services/data.service';
+import { Employee } from 'src/app/models/employee.model';
+import { EmployeeService } from 'src/app/services/data.service';
 
 import { ConfirmModal } from '../../confirm-modal/confirm-modal.component';
+
+import { Store, select } from '@ngrx/store';
+import { selectEmployees } from 'src/app/state/employees.selector';
 
 @Component({
   selector: 'app-employees-list',
@@ -14,14 +17,14 @@ import { ConfirmModal } from '../../confirm-modal/confirm-modal.component';
 
 export class EmployeesListComponent implements OnInit {
 
-  constructor(private employeeDataService: EmployeeDataService, public dialog: MatDialog) { }
+  constructor(private employeeDataService: EmployeeService, public dialog: MatDialog, private store: Store) { }
 
-  employeeCollection: Employee[] = [];
+  employeeCollection: Employee[] | any;
+
 
   ngOnInit() {
-    this.employeeDataService.getCollection().subscribe((item) => {
-      this.employeeCollection = item;
-    });
+    this.employeeCollection = this.store.pipe(select(selectEmployees));
+    this.store.dispatch({ type: '[Employee] Get Employees' });
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string, employee: Employee): void {
@@ -30,17 +33,9 @@ export class EmployeesListComponent implements OnInit {
       enterAnimationDuration,
       exitAnimationDuration,
       data: {
-        firstName: employee.identity.firstName,
-        secondName: employee.identity.secondName,
-        age: employee.identity.age,
-        email: employee.email,
-        jobDesription: employee.jobDescription,
-        hireDate: employee.hireDate,
+        employee
       }
     });
   }
-
-
-
-  displayedColumns: string[] = ['name', 'age', 'job-description', 'buttons'];
+  displayedColumns: string[] = ['name', 'age', 'city', 'email', 'prev-comp', 'buttons'];
 }
