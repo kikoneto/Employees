@@ -13,7 +13,7 @@ export class EmployeesService {
 
     findAll(): Promise<Employees[]> {
         return this.employeesRepository.find({
-            select: ['id', 'firstName', 'secondName', 'age', 'city', 'email', 'company', 'date'],
+            select: ['id', 'firstName', 'secondName', 'age', 'city', 'email', 'company', 'date', 'department'],
         });
     }
 

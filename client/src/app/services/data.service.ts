@@ -20,4 +20,19 @@ export class EmployeeService {
         return this.http.delete(`http://localhost:3000/employees/${id}`)
     }
 
+    getCities(): Observable<any> {
+        return this.http.get('http://localhost:3000/employees/city');
+    }
+
+    getDepartments(): Observable<any> {
+        return this.http.get('http://localhost:3000/employees/departments');
+    }
+
+    getByDepartments(department: string): Observable<any> {
+        return this.http.get(`http://localhost:3000/employees/departments/${department}`);
+    }
+
+    getByCity(city: string): Observable<any> {
+        return this.http.get(`http://localhost:3000/employees/city/${city}`);
+    }
 }

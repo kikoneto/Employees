@@ -1,0 +1,13 @@
+<button mat-button color="primary" [matMenuTriggerFor]="animals">Filter</button>
+<mat-menu #animals="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="city">City</button>
+    <button mat-menu-item [matMenuTriggerFor]="department">Departments</button>
+</mat-menu>
+
+<mat-menu #city="matMenu">
+    <button mat-menu-item *ngFor="let city of cities" (click)="setCityEmployess(city)">{{city}}</button>
+</mat-menu>
+
+<mat-menu #department="matMenu">
+    <button mat-menu-item *ngFor="let department of departments">{{department}}</button>
+</mat-menu>

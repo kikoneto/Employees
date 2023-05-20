@@ -7,8 +7,9 @@ export class Employee {
     email: string;
     company: string;
     hireDate: string;
+    department: string;
 
-    constructor(firstName: string, secondName: string, age: number, city: string, email: string, company: string, hireDate: string, id?: number) {
+    constructor(firstName: string, secondName: string, age: number, city: string, email: string, company: string, hireDate: string, department: string, id?: number) {
         if (id) {
             this.id = id;
         }
@@ -19,5 +20,6 @@ export class Employee {
         this.email = email;
         this.company = company;
         this.hireDate = hireDate;
+        this.department = department;
     }
 }

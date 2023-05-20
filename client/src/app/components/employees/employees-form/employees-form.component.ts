@@ -28,6 +28,7 @@ export class EmployeesFormComponent {
   emailControl = new FormControl('', [Validators.email, Validators.required]);
   companyControl = new FormControl('', [Validators.minLength(2), Validators.required]);
   hireControl = new FormControl('', [Validators.minLength(4), Validators.maxLength(10), Validators.required]);
+  departmentControl = new FormControl('', [Validators.minLength(2), Validators.required]);
 
   isDisabled = true;
 
@@ -44,6 +45,7 @@ export class EmployeesFormComponent {
         this.emailControl.value as string,
         this.companyControl.value as string,
         this.hireControl.value as string,
+        this.departmentControl.value as string,
       )
 
       this.addNewEmployee(newEmployee);

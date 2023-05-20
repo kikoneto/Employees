@@ -28,8 +28,9 @@ import { EmployeeService } from './services/data.service';
 import { AuthService } from './services/auth.service';
 
 // State Managers
-import { employeeReducer } from './state/employees.reducer';
+import { cityReducer, departmentReducer, employeeReducer } from './state/employees.reducer';
 import { EmployeeEffects } from './state/employees.effect';
+import { FilterComponent } from './components/filter/filter.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { EmployeeEffects } from './state/employees.effect';
     ConfirmModal,
     AuthComponentComponent,
     HeaderComponent,
+    FilterComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +52,7 @@ import { EmployeeEffects } from './state/employees.effect';
     ReactiveFormsModule,
     MaterialModule,
     AppRoutingModule,
-    StoreModule.forRoot({ employee: employeeReducer }),
+    StoreModule.forRoot({ employee: employeeReducer, city: cityReducer, department: departmentReducer }),
     EffectsModule.forRoot([EmployeeEffects])
   ],
   providers: [AuthService, EmployeeService, httpInterceptorProviders,],

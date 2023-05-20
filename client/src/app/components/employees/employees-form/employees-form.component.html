@@ -38,6 +38,11 @@
                 <input matInput [formControl]="hireControl">
                 <mat-error *ngIf="hireControl.invalid">{{getErrorMessage(hireControl)}}</mat-error>
             </mat-form-field>
+            <mat-form-field appearance="fill" class="form-item">
+                <mat-label>Department</mat-label>
+                <input matInput [formControl]="departmentControl">
+                <mat-error *ngIf="departmentControl.invalid">{{getErrorMessage(departmentControl)}}</mat-error>
+            </mat-form-field>
             <button mat-fab extended color="primary">
                 Register
             </button>
