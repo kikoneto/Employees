@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Delete, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Delete, Put, Query } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 import { Employees } from './employees.entity';
 
@@ -7,18 +7,55 @@ import { Employees } from './employees.entity';
 export class EmployeesController {
     constructor(private service: EmployeesService) { }
 
-    @Get()
-    async findAll(): Promise<Employees[]> {
-        const employees = await this.service.findAll();
-
-        return employees;
+    // Found by department
+    @Get('/departments/:department')
+    async findByDepartment(@Param('department') department: string): Promise<Employees[]> {
+        console.log('departments/departments')
+        return await this.service.findByDepartment(department);
     }
 
+    // Found by City
+    @Get('/city/:city')
+    async findByCity(@Param('city') city: string): Promise<Employees[]> {
+        console.log('city/city')
+        return await this.service.findByCity(city);
+    }
+
+    // Get All Departments
+    @Get('/departments')
+    async findByDepartments(): Promise<string[]> {
+        console.log('departments')
+        const department = await this.service.findAllDepartments();
+        return department;
+    }
+
+    // Get All Cities
+    @Get('/city')
+    async findAllCities(): Promise<string[]> {
+        console.log('city')
+        const cities = await this.service.findAllCities();
+        return cities;
+    }
+
+
+    // Found by ID
     @Get('/:id')
     async findOne(@Param('id') id: number): Promise<Employees> {
         const employee = await this.service.findOne(id);
-
         return employee;
+    }
+
+    // All Employees
+    @Get()
+    async findAll(): Promise<Employees[]> {
+        const employees = await this.service.findAll();
+        return employees;
+    }
+
+    // Paged Employees
+    @Get('/find')
+    async findWithPagination(@Query('page') page: number, @Query('pageSize') pageSize: number) {
+        return await this.service.findWithPage(page, pageSize);
     }
 
     @Post()

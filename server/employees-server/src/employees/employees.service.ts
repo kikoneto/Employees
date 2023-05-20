@@ -17,8 +17,62 @@ export class EmployeesService {
         });
     }
 
+    findAllCities(): Promise<string[]> {
+        const cities = this.employeesRepository.query(
+            'SELECT DISTINCT city FROM Employees'
+        );
+        return cities;
+    }
+
+    findAllDepartments(): Promise<string[]> {
+        const departments = this.employeesRepository.query(
+            'SELECT DISTINCT department FROM Employees'
+        );
+        return departments;
+    }
+
+    findWithPage(page: number, pageSize: number): Promise<Employees[]> {
+        const offset = (page - 1) * pageSize;
+        return this.employeesRepository.find({
+            skip: offset,
+            take: pageSize,
+        });
+    }
+
     findOne(id: number): Promise<Employees | null> {
         return this.employeesRepository.findOneBy({ id });
+    }
+
+    findByDepartment(department: string): Promise<Employees[]> {
+        if (department === 'IT') {
+            return this.employeesRepository.find({
+                where: {
+                    department: "IT"
+                }
+            });
+        } else if (department === 'HR') {
+            return this.employeesRepository.find({
+                where: {
+                    department: "HR"
+                }
+            });
+        } else if (department === 'Marketing') {
+            return this.employeesRepository.find({
+                where: {
+                    department: "Marketing"
+                }
+            });
+        } else {
+            throw new Error('No such department');
+        }
+    }
+
+    findByCity(city: string): Promise<Employees[]> {
+        return this.employeesRepository.find({
+            where: {
+                city: city
+            }
+        })
     }
 
     async remove(id: number): Promise<void> {

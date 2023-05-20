@@ -25,4 +25,7 @@ export class Employees {
 
     @Column({ type: 'varchar', length: 255 })
     date: string;
+
+    @Column({ type: 'varchar', length: 255 })
+    department: string;
 }
