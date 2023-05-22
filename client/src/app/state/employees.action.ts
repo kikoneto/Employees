@@ -13,6 +13,30 @@ export const getEmployeesByDepartment = createAction('[Employee] Get Employees B
 export const getEmployeesByDepartmentSuccess = createAction('[Employee] Get Employees By Department Success', props<{ employees: Employee[] }>());
 export const getEmployeesByDepartmentFailure = createAction('[Employee] Get Employees By Department Failure', props<{ error: string }>());
 
+export const changePage = createAction(
+    '[Pagination] Change Page',
+    props<{ currentPage: number }>()
+);
+
+export const updatePageSize = createAction(
+    '[Pagination] Update Page Size',
+    props<{ pageSize: number }>()
+);
+
+export const setTotalItems = createAction(
+    '[Pagination] Set Total Items',
+    props<{ totalItems: number }>()
+);
+
+export const setOriginalArray = createAction(
+    '[Pagination] Set Original Array',
+    props<{ employees: Employee[] }>()
+);
+
+export const getEmployeesByPage = createAction('[EmployeePage] Get Employees By Page', props<{ page: number, pageSize: number }>());
+export const getEmployeesByPageSuccess = createAction('[EmployeePage] Get Employees By Page Success', props<{ employees: Employee[] }>());
+export const getEmployeesByPageFailure = createAction('[EmployeePage] Get Employees By Page Failure', props<{ error: string }>());
+
 export const addEmployee = createAction('[Employee] Add Employee', props<{ employee: Employee }>());
 export const addEmployeeSuccess = createAction('[Employee] Add Employee Success', props<{ employee: Employee }>());
 export const addEmployeeFailure = createAction('[Employee] Add Employee Failure', props<{ error: string }>());

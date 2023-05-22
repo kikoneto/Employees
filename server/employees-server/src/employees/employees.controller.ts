@@ -37,6 +37,11 @@ export class EmployeesController {
         return cities;
     }
 
+    // Paged Employees
+    @Get('/find')
+    async findWithPagination(@Query('page') page: number, @Query('pageSize') pageSize: number) {
+        return await this.service.findWithPage(page, pageSize);
+    }
 
     // Found by ID
     @Get('/:id')
@@ -50,12 +55,6 @@ export class EmployeesController {
     async findAll(): Promise<Employees[]> {
         const employees = await this.service.findAll();
         return employees;
-    }
-
-    // Paged Employees
-    @Get('/find')
-    async findWithPagination(@Query('page') page: number, @Query('pageSize') pageSize: number) {
-        return await this.service.findWithPage(page, pageSize);
     }
 
     @Post()

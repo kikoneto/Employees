@@ -2,6 +2,7 @@
 <mat-menu #animals="matMenu">
     <button mat-menu-item [matMenuTriggerFor]="city">City</button>
     <button mat-menu-item [matMenuTriggerFor]="department">Departments</button>
+    <button mat-menu-item (click)="setDefaultEmployees()">All</button>
 </mat-menu>
 
 <mat-menu #city="matMenu">
@@ -9,5 +10,6 @@
 </mat-menu>
 
 <mat-menu #department="matMenu">
-    <button mat-menu-item *ngFor="let department of departments">{{department}}</button>
+    <button mat-menu-item *ngFor="let department of departments"
+        (click)="setDepartmentEmployees(department)">{{department}}</button>
 </mat-menu>

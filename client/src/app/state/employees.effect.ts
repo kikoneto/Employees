@@ -40,9 +40,21 @@ export class EmployeeEffects {
         this.actions$.pipe(
             ofType(EmployeeActions.getEmployeesByDepartment),
             exhaustMap(({ department }) =>
-                this.employeeService.getByCity(department).pipe(
+                this.employeeService.getByDepartments(department).pipe(
                     map(employees => EmployeeActions.getEmployeesByDepartmentSuccess({ employees })),
                     catchError(error => of(EmployeeActions.getEmployeesByDepartmentFailure({ error: error.message })))
+                )
+            )
+        )
+    )
+
+    loadEmployeesByPage = createEffect(() =>
+        this.actions$.pipe(
+            ofType(EmployeeActions.getEmployeesByPage),
+            exhaustMap(({ page, pageSize }) =>
+                this.employeeService.getByPage(page, pageSize).pipe(
+                    map(employees => EmployeeActions.getEmployeesByPageSuccess({ employees })),
+                    catchError(error => of(EmployeeActions.getEmployeesByPageFailure({ error: error.message })))
                 )
             )
         )

@@ -17,7 +17,7 @@ import { selectEmployees } from 'src/app/state/employees.selector';
 
 export class EmployeesListComponent implements OnInit {
 
-  constructor(private employeeDataService: EmployeeService, public dialog: MatDialog, private store: Store) { }
+  constructor(public dialog: MatDialog, private store: Store) { }
 
   employeeCollection: Employee[] | any;
 
@@ -37,5 +37,5 @@ export class EmployeesListComponent implements OnInit {
       }
     });
   }
-  displayedColumns: string[] = ['name', 'age', 'city', 'email', 'prev-comp', 'buttons'];
+  displayedColumns: string[] = ['name', 'age', 'city', 'email', 'prev-comp', 'department', 'buttons'];
 }

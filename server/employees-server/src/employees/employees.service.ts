@@ -44,27 +44,11 @@ export class EmployeesService {
     }
 
     findByDepartment(department: string): Promise<Employees[]> {
-        if (department === 'IT') {
-            return this.employeesRepository.find({
-                where: {
-                    department: "IT"
-                }
-            });
-        } else if (department === 'HR') {
-            return this.employeesRepository.find({
-                where: {
-                    department: "HR"
-                }
-            });
-        } else if (department === 'Marketing') {
-            return this.employeesRepository.find({
-                where: {
-                    department: "Marketing"
-                }
-            });
-        } else {
-            throw new Error('No such department');
-        }
+        return this.employeesRepository.find({
+            where: {
+                department: department
+            }
+        });
     }
 
     findByCity(city: string): Promise<Employees[]> {

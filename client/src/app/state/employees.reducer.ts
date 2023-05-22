@@ -5,7 +5,15 @@ import * as EmployeeAction from './employees.action';
 // States
 export interface EmployeeState {
     employees: Employee[],
+    employeesByPage: Employee[],
     error: string | null;
+}
+
+export interface PaginationState {
+    totalItems: number;
+    pageSize: number;
+    currentPage: number;
+    originalArray: Employee[];
 }
 
 export interface CityState {
@@ -21,8 +29,16 @@ export interface DepartmentState {
 // Initial States
 export const initialEmployeeState: EmployeeState = {
     employees: [],
+    employeesByPage: [],
     error: null
 };
+
+export const initialPaginateState: PaginationState = {
+    totalItems: 0,
+    pageSize: 10,
+    currentPage: 1,
+    originalArray: []
+}
 
 export const initialCityState: CityState = {
     cities: [],
@@ -41,6 +57,7 @@ export const employeeReducer = createReducer(
     on(EmployeeAction.getEmployeesSuccess, (state, { employees }) => ({
         ...state,
         employees: [...employees],
+        employeesByPage: [],
         error: null,
     })),
     on(EmployeeAction.getEmployeesFailure, (state, { error }) => ({
@@ -51,6 +68,7 @@ export const employeeReducer = createReducer(
     on(EmployeeAction.getEmployeesByCitySuccess, (state, { employees }) => ({
         ...state,
         employees: [...employees],
+        employeesByPage: [...employees],
         error: null,
     })),
     on(EmployeeAction.getEmployeesByCityFailure, (state, { error }) => ({
@@ -61,12 +79,43 @@ export const employeeReducer = createReducer(
     on(EmployeeAction.getEmployeesByDepartmentSuccess, (state, { employees }) => ({
         ...state,
         employees: [...employees],
+        employeesByPage: [...employees],
         error: null,
     })),
     on(EmployeeAction.getEmployeesByDepartmentFailure, (state, { error }) => ({
         ...state,
         error
     })),
+    // Getting Employees By Pages
+    on(EmployeeAction.getEmployeesByPageSuccess, (state, { employees }) => ({
+        ...state,
+        employeesByPage: [...employees],
+        error: null,
+    })),
+    on(EmployeeAction.getEmployeesByPageFailure, (state, { error }) => ({
+        ...state,
+        error
+    })),
+)
+
+export const paginateReducer = createReducer(
+    initialPaginateState,
+    on(EmployeeAction.setTotalItems, (state, { totalItems }) => ({
+        ...state,
+        totalItems: totalItems,
+    })),
+    on(EmployeeAction.changePage, (state, { currentPage }) => ({
+        ...state,
+        currentPage: currentPage,
+    })),
+    on(EmployeeAction.updatePageSize, (state, { pageSize }) => ({
+        ...state,
+        pageSize: pageSize,
+    })),
+    on(EmployeeAction.setOriginalArray, (state, { employees }) => ({
+        ...state,
+        originalArray: [...employees]
+    }))
 )
 
 export const cityReducer = createReducer(

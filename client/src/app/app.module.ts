@@ -22,15 +22,16 @@ import { EmployeesFormComponent } from './components/employees/employees-form/em
 import { ConfirmModal } from './components/confirm-modal/confirm-modal.component';
 import { AuthComponentComponent } from './components/auth-component/auth-component.component';
 import { HeaderComponent } from './components/header/header.component';
+import { FilterComponent } from './components/filter/filter.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 
 // Services
 import { EmployeeService } from './services/data.service';
 import { AuthService } from './services/auth.service';
 
 // State Managers
-import { cityReducer, departmentReducer, employeeReducer } from './state/employees.reducer';
+import { cityReducer, departmentReducer, employeeReducer, paginateReducer } from './state/employees.reducer';
 import { EmployeeEffects } from './state/employees.effect';
-import { FilterComponent } from './components/filter/filter.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { FilterComponent } from './components/filter/filter.component';
     ConfirmModal,
     AuthComponentComponent,
     HeaderComponent,
-    FilterComponent
+    FilterComponent,
+    PaginatorComponent
   ],
   imports: [
     BrowserModule,
@@ -52,10 +54,10 @@ import { FilterComponent } from './components/filter/filter.component';
     ReactiveFormsModule,
     MaterialModule,
     AppRoutingModule,
-    StoreModule.forRoot({ employee: employeeReducer, city: cityReducer, department: departmentReducer }),
+    StoreModule.forRoot({ employee: employeeReducer, city: cityReducer, department: departmentReducer, pagination: paginateReducer }),
     EffectsModule.forRoot([EmployeeEffects])
   ],
-  providers: [AuthService, EmployeeService, httpInterceptorProviders,],
+  providers: [AuthService, EmployeeService, httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

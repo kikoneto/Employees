@@ -4,10 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Employee } from 'src/app/models/employee.model';
 
-import { EmployeeService } from 'src/app/services/data.service';
-import { getEmployees } from 'src/app/state/employees.action';
+import { getEmployees, changePage, setTotalItems, setOriginalArray } from 'src/app/state/employees.action';
 
-import { selectEmployees } from 'src/app/state/employees.selector';
+import { selectEmployees, selectPaginatedArray } from 'src/app/state/employees.selector';
 
 @Component({
   selector: 'app-employees-info',
@@ -17,15 +16,24 @@ import { selectEmployees } from 'src/app/state/employees.selector';
 
 export class EmployeesInfoComponent implements OnInit {
   employeeCollection: Employee[] | any;
+  employeePageCollection: Employee[] | any;
 
-  constructor(private employeeDataService: EmployeeService, public dialog: MatDialog, private store: Store) { }
+  constructor(public dialog: MatDialog, private store: Store) { }
 
 
   ngOnInit() {
-    this.store.select(selectEmployees).subscribe(state => {
-      this.employeeCollection = state
-    })
     this.store.dispatch(getEmployees());
+
+    this.store.select(selectEmployees).subscribe(state => {
+      this.store.dispatch(setOriginalArray({ employees: state }));
+      this.store.dispatch(setTotalItems({ totalItems: state.length }));
+      this.store.dispatch(changePage({ currentPage: 0 }));
+    })
+
+    this.store.select(selectPaginatedArray).subscribe(x => {
+      this.employeeCollection = x;
+      console.log(x)
+    })
   }
 
   displayedColumns: string[] = ['name', 'age', 'city', 'email', 'prev-comp', 'department'];

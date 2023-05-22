@@ -1,7 +1,11 @@
 <div class="employees-list section">
     <div class="header-container">
-        <h1 class="header">Current Employees List</h1>
-        <button mat-button color="primary" routerLink="/add-employee">Add Employee</button>
+        <div>
+            <button mat-button color="primary" routerLink="/add-employee">Add Employee</button>
+            <app-filter></app-filter>
+        </div>
+        <h1 class="h
+        eader">Current Employees List</h1>
     </div>
 
 
@@ -32,8 +36,13 @@
             </ng-container>
             <!-- PreviousCompany -->
             <ng-container matColumnDef="prev-comp">
-                <th mat-header-cell *matHeaderCellDef> Previous Company </th>
+                <th mat-header-cell *matHeaderCellDef> Previous Company</th>
                 <td mat-cell *matCellDef="let employee"> {{employee.company}} </td>
+            </ng-container>
+            <!-- Department -->
+            <ng-container matColumnDef="department">
+                <th mat-header-cell *matHeaderCellDef> Department</th>
+                <td mat-cell *matCellDef="let employee"> {{employee.department}} </td>
             </ng-container>
 
             <ng-container matColumnDef="buttons">

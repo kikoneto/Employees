@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 
 import { Employee } from '../models/employee.model';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable()
 export class EmployeeService {
@@ -34,5 +34,9 @@ export class EmployeeService {
 
     getByCity(city: string): Observable<any> {
         return this.http.get(`http://localhost:3000/employees/city/${city}`);
+    }
+
+    getByPage(page: number, pageSize: number): Observable<any> {
+        return this.http.get(`http://localhost:3000/employees/find?page=${page}&pageSize=${pageSize}`)
     }
 }

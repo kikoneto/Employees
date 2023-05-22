@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { selectCities } from 'src/app/state/employees.selector';
+import { selectCities, selectCurrentPage, selectPageSize } from 'src/app/state/employees.selector';
 import { selectDeparments } from 'src/app/state/employees.selector';
 
-import { getEmployeesByCity } from 'src/app/state/employees.action';
+import { changePage, getEmployees, getEmployeesByCity, getEmployeesByDepartment } from 'src/app/state/employees.action';
 
 @Component({
   selector: 'app-filter',
@@ -31,5 +31,21 @@ export class FilterComponent implements OnInit {
   setCityEmployess(result: string) {
     const city = Object.values(result)[0];
     this.store.dispatch(getEmployeesByCity({ city }))
+    this.store.dispatch(changePage({ currentPage: 0 }));
+    this.store.select(selectPageSize).subscribe(x => console.log(x));
+    this.store.select(selectCurrentPage).subscribe(x => console.log(x));
+  }
+
+  setDepartmentEmployees(result: string) {
+    const department = Object.values(result)[0];
+    this.store.dispatch(getEmployeesByDepartment({ department }));
+    this.store.dispatch(changePage({ currentPage: 0 }));
+    this.store.select(selectPageSize).subscribe(x => console.log(x));
+    this.store.select(selectCurrentPage).subscribe(x => console.log(x));
+  }
+
+  setDefaultEmployees() {
+    this.store.dispatch(getEmployees());
+    this.store.dispatch(changePage({ currentPage: 0 }));
   }
 }
