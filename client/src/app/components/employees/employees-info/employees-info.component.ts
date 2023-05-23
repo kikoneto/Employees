@@ -32,10 +32,9 @@ export class EmployeesInfoComponent implements OnInit {
 
     this.store.select(selectPaginatedArray).subscribe(x => {
       this.employeeCollection = x;
-      console.log(x)
     })
   }
 
-  displayedColumns: string[] = ['name', 'age', 'city', 'email', 'prev-comp', 'department'];
+  displayedColumns: string[] = ['name', 'age', 'city', 'email', 'prev-comp', 'hire-date', 'department'];
 
 }

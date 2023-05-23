@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Users } from 'src/users/users.entity';
@@ -19,4 +19,17 @@ export class UsersService {
     async findByUsername(username: string): Promise<Users | undefined> {
         return this.usersRepository.findOneBy({ username });
     }
+
+    async register(username: string, password: string, confirmPassword: string, email: string): Promise<Users | undefined> {
+        if (password == confirmPassword) {
+            const existingUser = await this.usersRepository.findOneBy({ email: email });
+            if (existingUser) {
+                throw new HttpException('User with such an email already exists.', HttpStatus.BAD_REQUEST)
+            }
+            const user = new Users(username, password, email);
+            console.log('Successful Register')
+            return await this.usersRepository.save(user);
+        }
+    }
+
 }

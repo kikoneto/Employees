@@ -53,7 +53,7 @@ export class EmployeesController {
     // All Employees
     @Get()
     async findAll(): Promise<Employees[]> {
-        const employees = await this.service.findAll();
+        const employees = (await this.service.findAll()).reverse();
         return employees;
     }
 
@@ -64,8 +64,10 @@ export class EmployeesController {
     }
 
     @Delete('/:id')
-    async deleteEmployee(@Param('id') id: number): Promise<void> {
+    async deleteEmployee(@Param('id') id: number): Promise<Employees[]> {
         const deletedEmployee = await this.service.remove(id);
+        const employees = (await this.service.findAll()).reverse();
+        return employees;
     }
 
     @Put('/:id')

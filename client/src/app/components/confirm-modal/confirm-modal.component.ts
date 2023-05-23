@@ -15,12 +15,11 @@ export class ConfirmModal {
   constructor(public dialogRef: MatDialogRef<ConfirmModal>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dataService: EmployeeService,
-    private store: Store,
-    private router: Router) { }
+    private store: Store) { }
 
   onConfirm() {
     const id: number = this.data.employee.id;
     this.store.dispatch(deleteEmployee({ id }));
-    this.router.navigate(['']);
+    this.store.dispatch({ type: '[Employee] Get Employees' });
   }
 }

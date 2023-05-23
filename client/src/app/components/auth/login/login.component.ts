@@ -6,11 +6,11 @@ import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
-    selector: 'app-auth-component',
-    templateUrl: './auth-component.component.html',
-    styleUrls: ['./auth-component.component.css']
+    selector: 'app-login-component',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css']
 })
-export class AuthComponentComponent {
+export class LoginComponent {
 
     constructor(private router: Router, private authService: AuthService) { };
 
@@ -29,6 +29,7 @@ export class AuthComponentComponent {
 
             this.authService.login(credentials).subscribe(result => {
                 this.authService.setAccessToken(result.access_token);
+                this.router.navigate(['/list']);
             });
 
         }

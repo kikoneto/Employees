@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { Employee } from 'src/app/models/employee.model';
-import { EmployeeService } from 'src/app/services/data.service';
 
 import { ConfirmModal } from '../../confirm-modal/confirm-modal.component';
 
@@ -23,7 +22,7 @@ export class EmployeesListComponent implements OnInit {
 
 
   ngOnInit() {
-    this.employeeCollection = this.store.pipe(select(selectEmployees));
+    this.employeeCollection = this.store.select(selectEmployees);
     this.store.dispatch({ type: '[Employee] Get Employees' });
   }
 
@@ -37,5 +36,6 @@ export class EmployeesListComponent implements OnInit {
       }
     });
   }
-  displayedColumns: string[] = ['name', 'age', 'city', 'email', 'prev-comp', 'department', 'buttons'];
+  displayedColumns: string[] = ['name', 'age', 'city', 'email', 'prev-comp', 'hire-date', 'department', 'buttons'];
+
 }

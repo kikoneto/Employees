@@ -20,7 +20,7 @@ import { EmployeesListComponent } from './components/employees/employees-list/em
 import { EmployeesInfoComponent } from './components/employees/employees-info/employees-info.component';
 import { EmployeesFormComponent } from './components/employees/employees-form/employees-form.component';
 import { ConfirmModal } from './components/confirm-modal/confirm-modal.component';
-import { AuthComponentComponent } from './components/auth-component/auth-component.component';
+import { LoginComponent } from './components/auth/login/login.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
@@ -42,7 +42,7 @@ import { EmployeeEffects } from './state/employees.effect';
     EmployeesInfoComponent,
     EmployeesFormComponent,
     ConfirmModal,
-    AuthComponentComponent,
+    LoginComponent,
     HeaderComponent,
     FilterComponent,
     PaginatorComponent

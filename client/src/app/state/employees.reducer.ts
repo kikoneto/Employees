@@ -96,6 +96,16 @@ export const employeeReducer = createReducer(
         ...state,
         error
     })),
+    // Deleting Employee By Id
+    on(EmployeeAction.deleteEmployeeSuccess, (state, { employees }) => ({
+        ...state,
+        employees: [...employees],
+        error: null,
+    })),
+    on(EmployeeAction.deleteEmployeeFailure, (state, { error }) => ({
+        ...state,
+        error,
+    }))
 )
 
 export const paginateReducer = createReducer(

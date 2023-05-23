@@ -77,7 +77,7 @@ export class EmployeeEffects {
             ofType(EmployeeActions.deleteEmployee),
             exhaustMap(({ id }) =>
                 this.employeeService.removeEmployee(id).pipe(
-                    map(employees => EmployeeActions.deleteEmployeeSuccess({ id })),
+                    map(employees => EmployeeActions.deleteEmployeeSuccess({ employees })),
                     catchError(error => of(EmployeeActions.deleteEmployeeFailure({ error: error.message })))
                 )
             ))
