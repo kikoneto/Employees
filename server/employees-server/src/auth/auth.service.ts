@@ -9,14 +9,15 @@ export class AuthService {
         private jwtService: JwtService
     ) { }
 
-    async signIn(username: string, pass: string): Promise<any> {
-        const user = await this.usersService.findByUsername(username);
+    async signIn(email: string, pass: string): Promise<any> {
+        const user = await this.usersService.findByEmail(email);
+        console.log(user)
 
         if (user?.password !== pass) {
             throw new UnauthorizedException();
         }
 
-        const payload = { username: user.username, sub: user.userId }
+        const payload = { email: user.email, sub: user.userId }
         return {
             access_token: await this.jwtService.signAsync(payload)
         }
@@ -25,12 +26,9 @@ export class AuthService {
     async signUp(username: string, pass: string, confirmPassword: string, email: string): Promise<any> {
         if (pass == confirmPassword) {
             const newUser = await this.usersService.register(username, pass, confirmPassword, email);
-            console.log('Good Password')
             if (newUser) {
-                console.log('logged in')
-                await this.signIn(newUser.username, newUser.password);
-            } else {
-                throw new HttpException('No New User', HttpStatus.BAD_REQUEST);
+                console.log('User Successfully')
+                return await this.signIn(email, pass);
             }
         } else {
             console.log('Bad Password')

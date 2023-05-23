@@ -16,8 +16,8 @@ export class UsersService {
         });
     }
 
-    async findByUsername(username: string): Promise<Users | undefined> {
-        return this.usersRepository.findOneBy({ username });
+    async findByEmail(email: string): Promise<Users | undefined> {
+        return this.usersRepository.findOneBy({ email });
     }
 
     async register(username: string, password: string, confirmPassword: string, email: string): Promise<Users | undefined> {

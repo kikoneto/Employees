@@ -1,0 +1,9 @@
+.auth-register {
+    width: 300px;
+    margin: 70px auto;
+}
+
+.register-item {
+    display: flex;
+    flex-direction: column;
+}

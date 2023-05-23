@@ -1,0 +1,31 @@
+<div class="employees-register section">
+    <h1>Register</h1>
+
+    <div class="auth-register">
+        <form (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="fill" class="register-item">
+                <mat-label>Username</mat-label>
+                <input matInput [formControl]="usernameControl">
+                <mat-error *ngIf="usernameControl.invalid">{{getErrorMessage(usernameControl)}}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="register-item">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput [formControl]="passwordControl">
+                <mat-error *ngIf="passwordControl.invalid">{{getErrorMessage(passwordControl)}}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="register-item">
+                <mat-label>Confirm Password</mat-label>
+                <input type="password" matInput [formControl]="confirmPasswordControl">
+                <mat-error
+                    *ngIf="confirmPasswordControl.invalid">{{getErrorMessage(confirmPasswordControl)}}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="register-item">
+                <mat-label>Email</mat-label>
+                <input matInput [formControl]="emailControl">
+                <mat-error *ngIf="emailControl.invalid">{{getErrorMessage(emailControl)}}</mat-error>
+            </mat-form-field>
+            <button mat-fab extended color="primary">Register</button>
+            <mat-error *ngIf="registerState !== '' ">{{registerState}}</mat-error>
+        </form>
+    </div>
+</div>

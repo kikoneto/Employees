@@ -16,7 +16,7 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       });
 
-      console.log('good with token')
+      console.log('Request with Token');
       return next.handle(modifiedRequest).pipe(
         catchError((error: any) => {
           if (error instanceof HttpErrorResponse) {
@@ -30,7 +30,7 @@ export class AuthInterceptor implements HttpInterceptor {
         })
       );;
     } else {
-      console.log('good');
+      console.log('Request without Token');
       return next.handle(request)
     }
   }

@@ -24,6 +24,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
+import { RegisterComponent } from './components/auth/register/register.component';
 
 // Services
 import { EmployeeService } from './services/data.service';
@@ -45,7 +46,8 @@ import { EmployeeEffects } from './state/employees.effect';
     LoginComponent,
     HeaderComponent,
     FilterComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

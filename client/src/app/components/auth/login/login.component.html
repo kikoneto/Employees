@@ -4,9 +4,9 @@
     <div class="auth-login">
         <form (ngSubmit)="onSubmit()">
             <mat-form-field appearance="fill" class="login-item">
-                <mat-label>Username</mat-label>
-                <input matInput [formControl]="usernameControl">
-                <mat-error *ngIf="usernameControl.invalid">{{getErrorMessage(usernameControl)}}</mat-error>
+                <mat-label>Email</mat-label>
+                <input matInput [formControl]="emailControl">
+                <mat-error *ngIf="emailControl.invalid">{{getErrorMessage(emailControl)}}</mat-error>
             </mat-form-field>
             <mat-form-field appearance="fill" class="login-item">
                 <mat-label>Password</mat-label>
