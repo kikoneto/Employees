@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent {
 
+    loginGood: boolean = false;
     constructor(private router: Router, private authService: AuthService) { };
 
     usernameControl = new FormControl('', [Validators.minLength(4), Validators.required]);
@@ -20,18 +21,23 @@ export class LoginComponent {
 
     onSubmit() {
         if (this.usernameControl.invalid || this.passwordControl.invalid) {
-            console.log('invalid');
+            console.log(this.passwordControl.errors)
         } else {
             const credentials = {
                 username: this.usernameControl.value,
                 password: this.passwordControl.value,
             }
 
-            this.authService.login(credentials).subscribe(result => {
-                this.authService.setAccessToken(result.access_token);
-                this.router.navigate(['/list']);
-            });
-
+            this.authService.login(credentials).subscribe(
+                result => {
+                    this.authService.setAccessToken(result.access_token);
+                    this.router.navigate(['/list']);
+                },
+                error => {
+                    console.log('Error:', error);
+                    this.loginGood = true;
+                }
+            );
         }
     }
 
@@ -42,6 +48,10 @@ export class LoginComponent {
         else if (control.hasError('minlength')) {
             return 'At least 4 char';
         }
-        return '';
+        else if (control.hasError('incorrect')) {
+            return 'Incorrect Login information!';
+        } else {
+            return '';
+        }
     }
 }
