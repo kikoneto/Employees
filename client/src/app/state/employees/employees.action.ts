@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Employee } from '../models/employee.model';
+import { Employee } from '../../models/employee.model';
 
 // Employees Get Actions
 export const getEmployees = createAction('[Employee] Get Employees');

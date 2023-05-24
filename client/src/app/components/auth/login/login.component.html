@@ -14,7 +14,7 @@
                 <mat-error *ngIf="passwordControl.invalid">{{getErrorMessage(passwordControl)}}</mat-error>
             </mat-form-field>
             <button mat-fab extended color="primary">Login</button>
-            <mat-error *ngIf="loginGood">Incorrect Login Information</mat-error>
+            <mat-error *ngIf="error !== null">Password or Username is not correct!</mat-error>
         </form>
     </div>
 </div>

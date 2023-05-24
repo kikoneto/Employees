@@ -11,8 +11,8 @@ const routes: Routes = [
   { path: '', component: EmployeesInfoComponent },
   { path: 'list', component: EmployeesListComponent, canActivate: [AuthGuard] },
   { path: 'add-employee', component: EmployeesFormComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent }
+  { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
+  { path: 'register', component: RegisterComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

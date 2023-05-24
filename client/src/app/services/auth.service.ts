@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 
-import { BehaviorSubject, Observable, tap } from "rxjs";
+import { BehaviorSubject, Observable, of, tap } from "rxjs";
 
 @Injectable()
 export class AuthService {
@@ -14,15 +14,8 @@ export class AuthService {
 
     constructor(private http: HttpClient, private router: Router) { }
 
-    setAccessToken(token: string) {
-        this.accessTokenSubject.next(token);
-        this.accessTokenSubject.subscribe(x => {
-            this.accessToken$ = x;
-        })
-    }
-
-    getAccessToken(): string | undefined {
-        return this.accessToken$;
+    getAccessToken(): Observable<string> {
+        return of(localStorage.getItem('access_token') as string);
     }
 
     refreshToken(): Observable<any> {
@@ -37,10 +30,7 @@ export class AuthService {
                     password: currentUser!.password,
                     accessToken: response.access_token
                 }
-
                 console.log(newUser)
-                this.setAccessToken(response.access_token);
-                this.userSubject.next(newUser)
             })
         );
     }
@@ -49,21 +39,19 @@ export class AuthService {
         // Make the request without the access token
         return this.http.post(`http://localhost:3000/auth/login`, credentials).pipe(
             tap((response: any) => {
-                const newUser = {
-                    email: credentials.email,
-                    password: credentials.password,
-                    accessToken: response.access_token
-                }
                 localStorage.setItem('access_token', response.access_token);
-                // this.setAccessToken(response.access_token);
-                // this.userSubject.next(newUser)
-                // this.router.navigate(['/list'])
+                this.router.navigate([''])
             })
         );
     }
 
     register(credentials: { username: string, password: string, confirmPassword: string, email: string }): Observable<any> {
-        return this.http.post(`http://localhost:3000/auth/register`, credentials);
+        return this.http.post(`http://localhost:3000/auth/register`, credentials).pipe(
+            tap((response: any) => {
+                localStorage.setItem('access_token', response.access_token);
+                this.router.navigate([''])
+            })
+        );
     }
 
     isAuthenticated(): boolean {

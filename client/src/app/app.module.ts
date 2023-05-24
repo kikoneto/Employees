@@ -31,8 +31,10 @@ import { EmployeeService } from './services/data.service';
 import { AuthService } from './services/auth.service';
 
 // State Managers
-import { cityReducer, departmentReducer, employeeReducer, paginateReducer } from './state/employees.reducer';
-import { EmployeeEffects } from './state/employees.effect';
+import { cityReducer, departmentReducer, employeeReducer, paginateReducer } from './state/employees/employees.reducer';
+import { EmployeeEffects } from './state/employees/employees.effect';
+import { UsersEffects } from './state/users/users.effect';
+import { accessTokenReducer } from './state/users/users.reducer';
 
 
 @NgModule({
@@ -56,8 +58,8 @@ import { EmployeeEffects } from './state/employees.effect';
     ReactiveFormsModule,
     MaterialModule,
     AppRoutingModule,
-    StoreModule.forRoot({ employee: employeeReducer, city: cityReducer, department: departmentReducer, pagination: paginateReducer }),
-    EffectsModule.forRoot([EmployeeEffects])
+    StoreModule.forRoot({ employee: employeeReducer, city: cityReducer, department: departmentReducer, pagination: paginateReducer, accessToken: accessTokenReducer }),
+    EffectsModule.forRoot([EmployeeEffects, UsersEffects])
   ],
   providers: [AuthService, EmployeeService, httpInterceptorProviders],
   bootstrap: [AppComponent]

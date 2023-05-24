@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { selectCurrentPage, selectPageSize, selectTotalItems } from 'src/app/state/employees.selector';
+import { selectCurrentPage, selectPageSize, selectTotalItems } from 'src/app/state/employees/employees.selector';
 import { Store } from '@ngrx/store';
-import { changePage, updatePageSize } from 'src/app/state/employees.action';
+import { changePage, updatePageSize } from 'src/app/state/employees/employees.action';
 
 @Component({
   selector: 'app-paginator',

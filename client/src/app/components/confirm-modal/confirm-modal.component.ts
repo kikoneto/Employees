@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { EmployeeService } from '../../services/data.service';
 import { Store } from '@ngrx/store';
-import { deleteEmployee } from 'src/app/state/employees.action';
+import { deleteEmployee } from 'src/app/state/employees/employees.action';
 import { Router } from '@angular/router';
 
 @Component({

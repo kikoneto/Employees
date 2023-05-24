@@ -1,17 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
+import { Store } from '@ngrx/store';
+import { setAccessTokenByRegister } from 'src/app/state/users/users.action';
+import { selectError } from 'src/app/state/users/users.selector';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
 
-  registerState: string = '';
-  constructor(private router: Router, private authService: AuthService) { };
+  error: string | null = null;
+  constructor(private store: Store) { };
+
+  ngOnInit(): void {
+    this.store.select(selectError).subscribe(x => {
+      console.log(x)
+    })
+  }
 
   usernameControl = new FormControl('', [Validators.minLength(4), Validators.required]);
   passwordControl = new FormControl('', [Validators.minLength(4), Validators.required]);
@@ -29,16 +36,9 @@ export class RegisterComponent {
         email: this.emailControl.value as string
       }
 
-      this.authService.register(credentials).subscribe(
-        result => {
-          this.registerState = 'Successful';
-          localStorage.setItem('access_token', result.access_token)
-          console.log(result.access_token)
-        },
-        error => {
-          this.registerState = error.error.message
-        }
-      );
+      if (credentials) {
+        this.store.dispatch(setAccessTokenByRegister({ ...credentials }))
+      }
     }
   }
 

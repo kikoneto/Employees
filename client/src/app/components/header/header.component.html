@@ -7,7 +7,7 @@
             <button mat-menu-item color="primary" (click)="redirect('add-employee')">Employees Add</button>
         </mat-menu>
 
-        <div class="authenticators" *ngIf="!isAuthenticated()" class="menu-item">
+        <div class="authenticators" *ngIf="accessToken == null" class="menu-item">
             <button mat-button color="primary" (click)="redirect('login')">Login</button>
             <button mat-button color="primary" (click)="redirect('register')">Register</button>
         </div>

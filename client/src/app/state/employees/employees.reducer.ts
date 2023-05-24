@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { Employee } from "../models/employee.model";
+import { Employee } from "../../models/employee.model";
 import * as EmployeeAction from './employees.action';
 
 // States

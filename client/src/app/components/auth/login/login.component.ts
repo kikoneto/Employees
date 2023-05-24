@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 import { AuthService } from 'src/app/services/auth.service';
+import { setAccessTokenByLogin } from 'src/app/state/users/users.action';
+import { selectError } from 'src/app/state/users/users.selector';
 
 
 @Component({
@@ -10,10 +13,17 @@ import { AuthService } from 'src/app/services/auth.service';
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
-    loginGood: boolean = false;
-    constructor(private router: Router, private authService: AuthService) { };
+    error: string | null = null;
+
+    constructor(private store: Store) { };
+
+    ngOnInit(): void {
+        this.store.select(selectError).subscribe(x => {
+            this.error = x;
+        })
+    }
 
     emailControl = new FormControl('', [Validators.email, Validators.required]);
     passwordControl = new FormControl('', [Validators.minLength(4), Validators.required]);
@@ -23,21 +33,25 @@ export class LoginComponent {
             console.log(this.passwordControl.errors)
         } else {
             const credentials = {
-                email: this.emailControl.value,
-                password: this.passwordControl.value,
+                email: this.emailControl.value as string,
+                password: this.passwordControl.value as string,
             }
 
-            this.authService.login(credentials).subscribe(
-                result => {
-                    localStorage.setItem('access_token', result.access_token)
-                    this.router.navigate(['/list']);
-                    this.loginGood = false;
-                },
-                error => {
-                    console.log('Error:', error);
-                    this.loginGood = true;
-                }
-            );
+            if (credentials) {
+                this.store.dispatch(setAccessTokenByLogin({ ...credentials }))
+            }
+
+            // this.authService.login(credentials).subscribe(
+            //     result => {
+            //         localStorage.setItem('access_token', result.access_token)
+            //         this.router.navigate(['/list']);
+            //         this.loginGood = false;
+            //     },
+            //     error => {
+            //         console.log('Error:', error);
+            //         this.loginGood = true;
+            //     }
+            // );
         }
     }
 

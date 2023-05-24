@@ -6,7 +6,7 @@ import { Employee } from 'src/app/models/employee.model';
 import { ConfirmModal } from '../../confirm-modal/confirm-modal.component';
 
 import { Store, select } from '@ngrx/store';
-import { selectEmployees } from 'src/app/state/employees.selector';
+import { selectEmployees } from 'src/app/state/employees/employees.selector';
 
 @Component({
   selector: 'app-employees-list',

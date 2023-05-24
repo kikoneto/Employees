@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { selectCities, selectCurrentPage, selectPageSize } from 'src/app/state/employees.selector';
-import { selectDeparments } from 'src/app/state/employees.selector';
+import { selectDeparments, selectCities, selectCurrentPage, selectPageSize } from 'src/app/state/employees/employees.selector';
 
-import { changePage, getEmployees, getEmployeesByCity, getEmployeesByDepartment } from 'src/app/state/employees.action';
+import { changePage, getEmployees, getEmployeesByCity, getEmployeesByDepartment } from 'src/app/state/employees/employees.action';
 
 @Component({
   selector: 'app-filter',

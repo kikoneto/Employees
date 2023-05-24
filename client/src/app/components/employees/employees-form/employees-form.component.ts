@@ -7,7 +7,7 @@ import { EmployeeService } from 'src/app/services/data.service';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { Store, select } from '@ngrx/store';
-import { addEmployee } from 'src/app/state/employees.action';
+import { addEmployee } from 'src/app/state/employees/employees.action';
 
 
 @Component({

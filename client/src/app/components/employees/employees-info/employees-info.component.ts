@@ -4,9 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Employee } from 'src/app/models/employee.model';
 
-import { getEmployees, changePage, setTotalItems, setOriginalArray } from 'src/app/state/employees.action';
+import { getEmployees, changePage, setTotalItems, setOriginalArray } from 'src/app/state/employees/employees.action';
 
-import { selectEmployees, selectPaginatedArray } from 'src/app/state/employees.selector';
+import { selectEmployees, selectPaginatedArray } from 'src/app/state/employees/employees.selector';
 
 @Component({
   selector: 'app-employees-info',
