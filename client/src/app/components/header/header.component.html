@@ -11,6 +11,9 @@
             <button mat-button color="primary" (click)="redirect('login')">Login</button>
             <button mat-button color="primary" (click)="redirect('register')">Register</button>
         </div>
+        <div class="log-out" *ngIf="accessToken != null" class="menu-item">
+            <button mat-button color="primary" (click)="removeToken()">Logout</button>
+        </div>
 
         <button mat-button color="primary" [matMenuTriggerFor]="language">Language</button>
         <mat-menu #language="matMenu">

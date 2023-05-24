@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { AuthService } from 'src/app/services/auth.service';
+import * as bcrypt from "bcryptjs";
+
 import { setAccessTokenByLogin } from 'src/app/state/users/users.action';
 import { selectError } from 'src/app/state/users/users.selector';
 
@@ -32,13 +32,13 @@ export class LoginComponent implements OnInit {
         if (this.emailControl.invalid || this.passwordControl.invalid) {
             console.log(this.passwordControl.errors)
         } else {
-            const credentials = {
-                email: this.emailControl.value as string,
-                password: this.passwordControl.value as string,
-            }
-
-            if (credentials) {
-                this.store.dispatch(setAccessTokenByLogin({ ...credentials }))
+            if (this.passwordControl.value) {
+                const saltRounds = 10;
+                const hashedPassword = bcrypt.hashSync(this.passwordControl.value, saltRounds);
+                console.log(hashedPassword);
+                if (hashedPassword) {
+                    this.store.dispatch(setAccessTokenByLogin({ email: this.emailControl.value as string, hashedPassword: hashedPassword }))
+                }
             }
 
             // this.authService.login(credentials).subscribe(
@@ -53,6 +53,9 @@ export class LoginComponent implements OnInit {
             //     }
             // );
         }
+    }
+
+    hashPassowrd(): any {
     }
 
     getErrorMessage(control: FormControl) {

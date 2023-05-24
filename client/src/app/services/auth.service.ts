@@ -35,7 +35,7 @@ export class AuthService {
         );
     }
 
-    login(credentials: { email: string | null, password: string | null }): Observable<any> {
+    login(credentials: { email: string | null, hashedPassword: string | null }): Observable<any> {
         // Make the request without the access token
         return this.http.post(`http://localhost:3000/auth/login`, credentials).pipe(
             tap((response: any) => {

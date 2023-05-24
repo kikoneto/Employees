@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+
 import { setAccessTokenByRegister } from 'src/app/state/users/users.action';
 import { selectError } from 'src/app/state/users/users.selector';
 
@@ -16,7 +17,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.select(selectError).subscribe(x => {
-      console.log(x)
+      this.error = x;
     })
   }
 

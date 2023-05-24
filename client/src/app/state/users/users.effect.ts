@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, exhaustMap, map } from 'rxjs/operators';
+import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import * as UsersAction from './users.action';
 
@@ -16,8 +16,8 @@ export class UsersEffects {
     setAccessTokenByLogin = createEffect(() =>
         this.actions$.pipe(
             ofType(UsersAction.setAccessTokenByLogin),
-            exhaustMap(({ email, password }) =>
-                this.authService.login({ email: email, password: password }).pipe(
+            exhaustMap(({ email, hashedPassword }) =>
+                this.authService.login({ email: email, hashedPassword: hashedPassword }).pipe(
                     map(accessToken => UsersAction.setAccessTokenByLoginSuccess({ accessToken })),
                     catchError(error => of(UsersAction.setAccessTokenByLoginFailure({ error: error.error.message })))
                 )
@@ -36,6 +36,14 @@ export class UsersEffects {
                 )
             )
         )
+    )
+
+    removeToken = createEffect(() =>
+        this.actions$.pipe(
+            ofType(UsersAction.removeAccessToken),
+            tap(() => localStorage.removeItem('access_token'))
+        ),
+        { dispatch: false }
     )
 
     // Get Access Token

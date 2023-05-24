@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { selectAccessToken } from 'src/app/state/users/users.selector';
-import { getAccessToken } from 'src/app/state/users/users.action';
+import { getAccessToken, removeAccessToken } from 'src/app/state/users/users.action';
 
 @Component({
   selector: 'app-header',
@@ -21,6 +21,10 @@ export class HeaderComponent implements OnInit {
     })
   }
 
+  removeToken() {
+    this.store.dispatch(removeAccessToken());
+  }
+  
   redirect(path: string) {
     this.router.navigate([`/${path}`])
   }

@@ -48,5 +48,11 @@ export const accessTokenReducer = createReducer(
         ...state,
         error
     })),
+    // Remove The Token
+    on(UsersAction.removeAccessToken, (state) => ({
+        ...state,
+        accessToken: null,
+        error: null,
+    })),
 )
 

@@ -3,6 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Users } from 'src/users/users.entity';
 
+import * as bcrypt from 'bcrypt';
+
 @Injectable()
 export class UsersService {
     constructor(
@@ -20,13 +22,13 @@ export class UsersService {
         return this.usersRepository.findOneBy({ email });
     }
 
-    async register(username: string, password: string, confirmPassword: string, email: string): Promise<Users | undefined> {
+    async register(username: string, password: string, confirmPassword: string, hashedPassword: string, email: string): Promise<Users | undefined> {
         if (password == confirmPassword) {
             const existingUser = await this.usersRepository.findOneBy({ email: email });
             if (existingUser) {
                 throw new HttpException('User with such an email already exists.', HttpStatus.BAD_REQUEST)
             }
-            const user = new Users(username, password, email);
+            const user = new Users(username, password, hashedPassword, email);
             console.log('Successful Register')
             return await this.usersRepository.save(user);
         }
