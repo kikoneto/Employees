@@ -6,10 +6,20 @@
 </mat-menu>
 
 <mat-menu #city="matMenu">
-    <button mat-menu-item *ngFor="let city of cities" (click)="setCityEmployess(city)">{{city}}</button>
+
+    <mat-radio-group aria-label="Select City">
+        <mat-radio-button class="example-radio-button" *ngFor="let city of cities" [value]="city"
+            (click)="setCityEmployess(city)">
+            {{city}}
+        </mat-radio-button>
+    </mat-radio-group>
 </mat-menu>
 
 <mat-menu #department="matMenu">
-    <button mat-menu-item *ngFor="let department of departments"
-        (click)="setDepartmentEmployees(department)">{{department}}</button>
+    <mat-radio-group aria-label="Select Department">
+        <mat-radio-button class="example-radio-button" *ngFor="let department of departments" [value]="department"
+            (click)="setDepartmentEmployees(department)">
+            {{department}}
+        </mat-radio-button>
+    </mat-radio-group>
 </mat-menu>

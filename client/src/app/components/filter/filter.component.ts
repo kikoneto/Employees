@@ -28,19 +28,20 @@ export class FilterComponent implements OnInit {
   }
 
   setCityEmployess(result: string) {
-    const city = Object.values(result)[0];
+    console.log(result[0])
+    const city = result[0];
     this.store.dispatch(getEmployeesByCity({ city }))
-    this.store.dispatch(changePage({ currentPage: 0 }));
-    this.store.select(selectPageSize).subscribe(x => console.log(x));
-    this.store.select(selectCurrentPage).subscribe(x => console.log(x));
+    // this.store.dispatch(changePage({ currentPage: 0 }));
+    // this.store.select(selectPageSize).subscribe(x => console.log(x));
+    // this.store.select(selectCurrentPage).subscribe(x => console.log(x));
   }
 
   setDepartmentEmployees(result: string) {
-    const department = Object.values(result)[0];
-    this.store.dispatch(getEmployeesByDepartment({ department }));
-    this.store.dispatch(changePage({ currentPage: 0 }));
-    this.store.select(selectPageSize).subscribe(x => console.log(x));
-    this.store.select(selectCurrentPage).subscribe(x => console.log(x));
+    console.log(result);
+    this.store.dispatch(getEmployeesByDepartment({ department: result }));
+    // this.store.dispatch(changePage({ currentPage: 0 }));
+    // this.store.select(selectPageSize).subscribe(x => console.log(x));
+    // this.store.select(selectCurrentPage).subscribe(x => console.log(x));
   }
 
   setDefaultEmployees() {

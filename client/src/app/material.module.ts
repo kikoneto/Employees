@@ -11,6 +11,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
     imports: [
@@ -23,7 +24,8 @@ import { MatIconModule } from '@angular/material/icon';
         MatPaginatorModule,
         MatDialogModule,
         MatMenuModule,
-        MatIconModule
+        MatIconModule,
+        MatRadioModule
     ],
     exports: [
         BrowserAnimationsModule,
@@ -35,7 +37,8 @@ import { MatIconModule } from '@angular/material/icon';
         MatPaginatorModule,
         MatDialogModule,
         MatMenuModule,
-        MatIconModule
+        MatIconModule,
+        MatRadioModule
     ]
 })
 export class MaterialModule { }
