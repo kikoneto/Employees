@@ -5,7 +5,8 @@ import * as EmployeeAction from './employees.action';
 // States
 export interface EmployeeState {
     employees: Employee[],
-    employeesByPage: Employee[],
+    count: number,
+    page: number,
     error: string | null;
 }
 
@@ -29,16 +30,10 @@ export interface DepartmentState {
 // Initial States
 export const initialEmployeeState: EmployeeState = {
     employees: [],
-    employeesByPage: [],
+    count: 0,
+    page: 0,
     error: null
 };
-
-export const initialPaginateState: PaginationState = {
-    totalItems: 0,
-    pageSize: 10,
-    currentPage: 1,
-    originalArray: []
-}
 
 export const initialCityState: CityState = {
     cities: [],
@@ -54,45 +49,14 @@ export const initialDepartmentState: DepartmentState = {
 export const employeeReducer = createReducer(
     initialEmployeeState,
     // Getting Employees
-    on(EmployeeAction.getEmployeesSuccess, (state, { employees }) => ({
+    on(EmployeeAction.getEmployeesSuccess, (state, { employees, count, page }) => ({
         ...state,
         employees: [...employees],
-        employeesByPage: [],
+        count: count,
+        page: page,
         error: null,
     })),
     on(EmployeeAction.getEmployeesFailure, (state, { error }) => ({
-        ...state,
-        error
-    })),
-    // Getting Employees By City
-    on(EmployeeAction.getEmployeesByCitySuccess, (state, { employees }) => ({
-        ...state,
-        employees: [...employees],
-        employeesByPage: [...employees],
-        error: null,
-    })),
-    on(EmployeeAction.getEmployeesByCityFailure, (state, { error }) => ({
-        ...state,
-        error
-    })),
-    // Getting Employees By Department
-    on(EmployeeAction.getEmployeesByDepartmentSuccess, (state, { employees }) => ({
-        ...state,
-        employees: [...employees],
-        employeesByPage: [...employees],
-        error: null,
-    })),
-    on(EmployeeAction.getEmployeesByDepartmentFailure, (state, { error }) => ({
-        ...state,
-        error
-    })),
-    // Getting Employees By Pages
-    on(EmployeeAction.getEmployeesByPageSuccess, (state, { employees }) => ({
-        ...state,
-        employeesByPage: [...employees],
-        error: null,
-    })),
-    on(EmployeeAction.getEmployeesByPageFailure, (state, { error }) => ({
         ...state,
         error
     })),
@@ -105,26 +69,6 @@ export const employeeReducer = createReducer(
     on(EmployeeAction.deleteEmployeeFailure, (state, { error }) => ({
         ...state,
         error,
-    }))
-)
-
-export const paginateReducer = createReducer(
-    initialPaginateState,
-    on(EmployeeAction.setTotalItems, (state, { totalItems }) => ({
-        ...state,
-        totalItems: totalItems,
-    })),
-    on(EmployeeAction.changePage, (state, { currentPage }) => ({
-        ...state,
-        currentPage: currentPage,
-    })),
-    on(EmployeeAction.updatePageSize, (state, { pageSize }) => ({
-        ...state,
-        pageSize: pageSize,
-    })),
-    on(EmployeeAction.setOriginalArray, (state, { employees }) => ({
-        ...state,
-        originalArray: [...employees]
     }))
 )
 

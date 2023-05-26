@@ -12,6 +12,7 @@ export const setAccessTokenByRegisterFailure = createAction('[User] Set Access B
 
 // Remove Access Token
 export const removeAccessToken = createAction('[User] Remove Access Token From Local Storage');
+export const removeAccessTokenSuccess = createAction('[User] Remove Access Token From Local Storage Success');
 
 // Get the Access Token
 export const getAccessToken = createAction('[User] Get Access Token');

@@ -7,19 +7,7 @@ import { Employees } from './employees.entity';
 export class EmployeesController {
     constructor(private service: EmployeesService) { }
 
-    // Found by department
-    @Get('/departments/:department')
-    async findByDepartment(@Param('department') department: string): Promise<Employees[]> {
-        console.log('departments/departments')
-        return await this.service.findByDepartment(department);
-    }
 
-    // Found by City
-    @Get('/city/:city')
-    async findByCity(@Param('city') city: string): Promise<Employees[]> {
-        console.log('city/city')
-        return await this.service.findByCity(city);
-    }
 
     // Get All Departments
     @Get('/departments')
@@ -37,11 +25,6 @@ export class EmployeesController {
         return cities;
     }
 
-    // Paged Employees
-    @Get('/find')
-    async findWithPagination(@Query('page') page: number, @Query('pageSize') pageSize: number) {
-        return await this.service.findWithPage(page, pageSize);
-    }
 
     // Found by ID
     @Get('/:id')
@@ -50,11 +33,26 @@ export class EmployeesController {
         return employee;
     }
 
-    // All Employees
     @Get()
-    async findAll(): Promise<Employees[]> {
-        const employees = (await this.service.findAll()).reverse();
-        return employees;
+    async findAll(
+        @Query('page') page: number = 1,
+        @Query('limit') limit: number = 5,
+        @Query('city') city?: string,
+        @Query('department') department?: string,
+    ) {
+        const [employees, count] = await this.service.paginate(
+            page,
+            limit,
+            city,
+            department,
+        );
+
+        return {
+            data: employees,
+            count,
+            page,
+            limit,
+        };
     }
 
     @Post()

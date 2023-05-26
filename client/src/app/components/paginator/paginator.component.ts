@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { selectCurrentPage, selectPageSize, selectTotalItems } from 'src/app/state/employees/employees.selector';
+import { selectCount, selectPage } from 'src/app/state/employees/employees.selector';
 import { Store } from '@ngrx/store';
-import { changePage, updatePageSize } from 'src/app/state/employees/employees.action';
+import { getEmployees } from 'src/app/state/employees/employees.action';
+import { EmployeeService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-paginator',
@@ -13,28 +14,43 @@ export class PaginatorComponent implements OnInit {
 
   totalItems: number = 0;
   pageIndex: number = 0;
-  pageSize: number = 10;
-  pageSizeOptions: number[] = [5, 10];
+  pageSize: number = 5;
+  pageSizeOptions: number[] = [5];
 
+  city: any;
+  department: any;
 
-  constructor(private store: Store) { }
+  constructor(private store: Store, private service: EmployeeService) { }
 
   ngOnInit(): void {
-    this.store.select(selectCurrentPage).subscribe(x =>
-      this.pageIndex = x);
-    this.store.select(selectPageSize).subscribe(x =>
-      this.pageSize = x);
-    this.store.select(selectTotalItems).subscribe(x =>
-      this.totalItems = x);
+    this.store.select(selectCount).subscribe(x => {
+      this.totalItems = x;
+    })
+    this.store.select(selectPage).subscribe(x => {
+      this.pageIndex = x - 1;
+    })
+
   }
 
   onChange(event: PageEvent) {
-    this.store.dispatch(changePage({ currentPage: event.pageIndex }));
-    if (event.pageSize !== this.pageSize) {
-      this.store.dispatch(updatePageSize({ pageSize: event.pageSize }))
+
+    // Implement City
+    this.service.getCity().subscribe(x =>
+      this.city = x
+    )
+    // Implement Department
+    this.service.getDepartment().subscribe(x => {
+      this.department = x;
+    })
+
+    if (this.city && this.department) {
+      this.store.dispatch(getEmployees({ page: event.pageIndex + 1, city: this.city, department: this.department }))
+    } else if (this.city) {
+      this.store.dispatch(getEmployees({ page: event.pageIndex + 1, city: this.city }));
+    } else if (this.department) {
+      this.store.dispatch(getEmployees({ page: event.pageIndex + 1, department: this.department }));
     }
-    console.log(this.pageSize);
-    console.log(this.pageIndex);
-    console.log(this.totalItems);
+    this.store.dispatch(getEmployees({ page: event.pageIndex + 1 }))
+    console.log(event.pageIndex + 1)
   }
 }

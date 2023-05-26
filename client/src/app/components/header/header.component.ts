@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
   removeToken() {
     this.store.dispatch(removeAccessToken());
   }
-  
+
   redirect(path: string) {
     this.router.navigate([`/${path}`])
   }

@@ -15,50 +15,14 @@ export class EmployeeEffects {
     getEmployees = createEffect(() =>
         this.actions$.pipe(
             ofType(EmployeeActions.getEmployees),
-            exhaustMap(() =>
-                this.employeeService.getEmployees().pipe(
-                    map(employees => EmployeeActions.getEmployeesSuccess({ employees })),
+            exhaustMap(({ page, limit, city, department }) =>
+                this.employeeService.getEmployees(page, limit, city, department).pipe(
+                    map((x) => EmployeeActions.getEmployeesSuccess({ employees: x.data, count: x.count, page: x.page })),
                     catchError(error => of(EmployeeActions.getEmployeesFailure({ error: error.message })))
                 )
             )
         )
     );
-
-    loadEmployeesByCity = createEffect(() =>
-        this.actions$.pipe(
-            ofType(EmployeeActions.getEmployeesByCity),
-            exhaustMap(({ city }) =>
-                this.employeeService.getByCity(city).pipe(
-                    map(employees => EmployeeActions.getEmployeesByCitySuccess({ employees })),
-                    catchError(error => of(EmployeeActions.getEmployeesByCityFailure({ error: error.message })))
-                )
-            )
-        )
-    )
-
-    loadEmployeesByDepartment = createEffect(() =>
-        this.actions$.pipe(
-            ofType(EmployeeActions.getEmployeesByDepartment),
-            exhaustMap(({ department }) =>
-                this.employeeService.getByDepartments(department).pipe(
-                    map(employees => EmployeeActions.getEmployeesByDepartmentSuccess({ employees })),
-                    catchError(error => of(EmployeeActions.getEmployeesByDepartmentFailure({ error: error.message })))
-                )
-            )
-        )
-    )
-
-    loadEmployeesByPage = createEffect(() =>
-        this.actions$.pipe(
-            ofType(EmployeeActions.getEmployeesByPage),
-            exhaustMap(({ page, pageSize }) =>
-                this.employeeService.getByPage(page, pageSize).pipe(
-                    map(employees => EmployeeActions.getEmployeesByPageSuccess({ employees })),
-                    catchError(error => of(EmployeeActions.getEmployeesByPageFailure({ error: error.message })))
-                )
-            )
-        )
-    )
 
     addEmployee = createEffect(() =>
         this.actions$.pipe(

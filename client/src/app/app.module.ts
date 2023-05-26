@@ -31,7 +31,7 @@ import { EmployeeService } from './services/data.service';
 import { AuthService } from './services/auth.service';
 
 // State Managers
-import { cityReducer, departmentReducer, employeeReducer, paginateReducer } from './state/employees/employees.reducer';
+import { cityReducer, departmentReducer, employeeReducer } from './state/employees/employees.reducer';
 import { EmployeeEffects } from './state/employees/employees.effect';
 import { UsersEffects } from './state/users/users.effect';
 import { accessTokenReducer } from './state/users/users.reducer';
@@ -58,7 +58,7 @@ import { accessTokenReducer } from './state/users/users.reducer';
     ReactiveFormsModule,
     MaterialModule,
     AppRoutingModule,
-    StoreModule.forRoot({ employee: employeeReducer, city: cityReducer, department: departmentReducer, pagination: paginateReducer, accessToken: accessTokenReducer }),
+    StoreModule.forRoot({ employee: employeeReducer, city: cityReducer, department: departmentReducer, accessToken: accessTokenReducer }),
     EffectsModule.forRoot([EmployeeEffects, UsersEffects])
   ],
   providers: [AuthService, EmployeeService, httpInterceptorProviders],

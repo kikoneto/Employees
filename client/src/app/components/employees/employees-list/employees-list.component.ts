@@ -22,8 +22,11 @@ export class EmployeesListComponent implements OnInit {
 
 
   ngOnInit() {
-    this.employeeCollection = this.store.select(selectEmployees);
     this.store.dispatch({ type: '[Employee] Get Employees' });
+    this.store.select(selectEmployees).subscribe(x => {
+      this.employeeCollection = x;
+    })
+
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string, employee: Employee): void {

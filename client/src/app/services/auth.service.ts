@@ -6,9 +6,6 @@ import { BehaviorSubject, Observable, of, tap } from "rxjs";
 
 @Injectable()
 export class AuthService {
-    private accessTokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(''); // Initialize with null
-    public accessToken$: string = '';
-
     private userSubject: BehaviorSubject<{ email: string | null, password: string | null, accessToken: string } | null> =
         new BehaviorSubject<{ email: string | null, password: string | null, accessToken: string } | null>(null);
 
@@ -52,14 +49,6 @@ export class AuthService {
                 this.router.navigate([''])
             })
         );
-    }
-
-    isAuthenticated(): boolean {
-        if (this.userSubject.getValue() === null) {
-            return false;
-        } else {
-            return true;
-        }
     }
 
     getUser(): Observable<any> {

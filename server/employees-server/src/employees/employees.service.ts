@@ -11,6 +11,8 @@ export class EmployeesService {
         private employeesRepository: Repository<Employees>
     ) { }
 
+
+
     findAll(): Promise<Employees[]> {
         return this.employeesRepository.find({
             select: ['id', 'firstName', 'secondName', 'age', 'city', 'email', 'company', 'date', 'department'],
@@ -31,32 +33,36 @@ export class EmployeesService {
         return departments;
     }
 
-    findWithPage(page: number, pageSize: number): Promise<Employees[]> {
-        const offset = (page - 1) * pageSize;
-        return this.employeesRepository.find({
-            skip: offset,
-            take: pageSize,
-        });
-    }
-
     findOne(id: number): Promise<Employees | null> {
         return this.employeesRepository.findOneBy({ id });
     }
 
-    findByDepartment(department: string): Promise<Employees[]> {
-        return this.employeesRepository.find({
-            where: {
-                department: department
-            }
-        });
-    }
+    async paginate(
+        page = 1,
+        limit = 5,
+        city?: string,
+        department?: string,
+    ): Promise<[Employees[], number]> {
+        const skip = (page - 1) * limit;
+        const queryBuilder = this.employeesRepository.createQueryBuilder('employee');
 
-    findByCity(city: string): Promise<Employees[]> {
-        return this.employeesRepository.find({
-            where: {
-                city: city
-            }
-        })
+        if (city) {
+            queryBuilder.andWhere('employee.city = :city', { city });
+        }
+
+        if (department) {
+            queryBuilder.andWhere('employee.department = :department', { department });
+        }
+
+        const employees = await queryBuilder
+            .orderBy('employee.id', 'DESC')
+            .skip(skip)
+            .take(limit)
+            .getMany();
+
+        const count = await queryBuilder.getCount();
+
+        return [employees, count];
     }
 
     async remove(id: number): Promise<void> {

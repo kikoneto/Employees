@@ -3,13 +3,15 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 import * as UsersAction from './users.action';
 
 @Injectable()
 export class UsersEffects {
     constructor(
         private actions$: Actions,
-        private authService: AuthService
+        private authService: AuthService,
+        private router: Router
     ) { }
 
     // Set the access token by login
@@ -41,9 +43,14 @@ export class UsersEffects {
     removeToken = createEffect(() =>
         this.actions$.pipe(
             ofType(UsersAction.removeAccessToken),
-            tap(() => localStorage.removeItem('access_token'))
+            tap(() => {
+                localStorage.removeItem('access_token');
+                this.router.navigate([''])
+            }),
+            map(() => {
+                return UsersAction.removeAccessTokenSuccess()
+            })
         ),
-        { dispatch: false }
     )
 
     // Get Access Token

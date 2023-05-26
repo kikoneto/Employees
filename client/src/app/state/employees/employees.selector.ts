@@ -15,36 +15,14 @@ export const selectEmployees = createSelector(
     (state: EmployeeState) => state.employees
 );
 
-// Pagination Selectors
-export const selectTotalItems = createSelector(
-    selectPaginationState,
-    (state) => state.totalItems
-);
+export const selectCount = createSelector(
+    selectEmployeeState,
+    (state: EmployeeState) => state.count
+)
 
-export const selectCurrentPage = createSelector(
-    selectPaginationState,
-    (state) => state.currentPage
-);
-
-export const selectPageSize = createSelector(
-    selectPaginationState,
-    (state) => state.pageSize
-);
-
-export const selectOriginalArray = createSelector(
-    selectPaginationState,
-    (state: PaginationState) => state.originalArray
-);
-
-export const selectPaginatedArray = createSelector(
-    selectCurrentPage,
-    selectPageSize,
-    selectOriginalArray,
-    (currentPage: number, itemsPerPage: number, array: any[]) => {
-        const startIndex = currentPage * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        return array.slice(startIndex, endIndex);
-    }
+export const selectPage = createSelector(
+    selectEmployeeState,
+    (state: EmployeeState) => state.page
 )
 
 // Filter Selectors
